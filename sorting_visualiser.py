@@ -14,10 +14,10 @@ root.maxsize(1400, 900)
 root.config(bg="white")
 
 algoName = StringVar()
-algoList = ['Merge Sort', 'Selection Sort', 'Bubble Sort', 'Insertion Sort']
+algoList = ["Merge Sort", "Selection Sort", "Bubble Sort", "Insertion Sort"]
 
 speedName = StringVar()
-speedList = ['Fast', 'Medium', 'Slow']
+speedList = ["Fast", "Medium", "Slow"]
 
 arr = []
 
@@ -40,6 +40,7 @@ def displayArr(arr, colorArray):
         canvas.create_rectangle(x1, y1, x2, y2, fill=colorArray[i])
 
     root.update_idletasks()
+
 
 # GENERATING ARRAY
 
@@ -66,15 +67,15 @@ def createArr():
 
 # Setting speed above 1 is terribly slow
 
-def set_speed():
 
+def set_speed():
     slow = 0.5
     medium = 0.05
     fast = 0.0000001
 
-    if speedComboBox.get() == 'Slow':
+    if speedComboBox.get() == "Slow":
         return slow
-    elif speedComboBox.get() == 'Medium':
+    elif speedComboBox.get() == "Medium":
         return medium
     elif speedComboBox.get() == "Fast":
         return fast
@@ -85,7 +86,7 @@ def merge(arr, begin, mid, end, displayArr):
     q = mid + 1
     tempArray = []
 
-    for i in range(begin, end+1):
+    for i in range(begin, end + 1):
         if p > mid:
             tempArray.append(arr[q])
             q += 1
@@ -108,12 +109,23 @@ def merge_sort(arr, begin, end, displayArr, tym):
     if begin < end:
         mid = int((begin + end) / 2)
         merge_sort(arr, begin, mid, displayArr, tym)
-        merge_sort(arr, mid+1, end, displayArr, tym)
+        merge_sort(arr, mid + 1, end, displayArr, tym)
 
         merge(arr, begin, mid, end, displayArr)
 
-        displayArr(arr, ["#71189E" if x >= begin and x < mid else "#A225AD" if x == mid
-                         else "#F381FC" if x > mid and x <= end else "blue" for x in range(len(arr))])
+        displayArr(
+            arr,
+            [
+                "#71189E"
+                if x >= begin and x < mid
+                else "#A225AD"
+                if x == mid
+                else "#F381FC"
+                if x > mid and x <= end
+                else "blue"
+                for x in range(len(arr))
+            ],
+        )
         time.sleep(tym)
 
     displayArr(arr, ["blue" for x in range(len(arr))])
@@ -121,56 +133,68 @@ def merge_sort(arr, begin, end, displayArr, tym):
 
 # sorting algorithims
 def sort():
-
     tym = set_speed()
     n = len(arr)
 
-    if algoComboBox.get() == 'Merge Sort':
-        merge_sort(arr, 0, len(arr)-1, displayArr, tym)
+    if algoComboBox.get() == "Merge Sort":
+        merge_sort(arr, 0, len(arr) - 1, displayArr, tym)
 
-    elif algoComboBox.get() == 'Selection Sort':
-        for i in range(0, n-1):
-            for j in range(i+1, n):
-                if (arr[i] > arr[j]):
+    elif algoComboBox.get() == "Selection Sort":
+        for i in range(0, n - 1):
+            for j in range(i + 1, n):
+                if arr[i] > arr[j]:
                     arr[i], arr[j] = arr[j], arr[i]  # SWAP
 
-                    displayArr(arr, ["yellow" if x == j or x ==
-                               j+1 else "blue" for x in range(len(arr))])
+                    displayArr(
+                        arr,
+                        [
+                            "yellow" if x == j or x == j + 1 else "blue"
+                            for x in range(len(arr))
+                        ],
+                    )
                     time.sleep(tym)
 
         displayArr(arr, ["blue" for x in range(len(arr))])
 
-    elif algoComboBox.get() == 'Bubble Sort':
-        for i in range(n-1):
-            for j in range(0, n-i-1):
-                if (arr[j] > arr[j + 1]):
+    elif algoComboBox.get() == "Bubble Sort":
+        for i in range(n - 1):
+            for j in range(0, n - i - 1):
+                if arr[j] > arr[j + 1]:
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]  # SWAP
 
-                    displayArr(arr, ["yellow" if x == j else "red" if x ==
-                               j+1 else "blue" for x in range(len(arr))])
+                    displayArr(
+                        arr,
+                        [
+                            "yellow" if x == j else "red" if x == j + 1 else "blue"
+                            for x in range(len(arr))
+                        ],
+                    )
                     time.sleep(tym)
 
         displayArr(arr, ["blue" for x in range(len(arr))])
 
-    elif algoComboBox.get() == 'Insertion Sort':
+    elif algoComboBox.get() == "Insertion Sort":
         for i in range(1, len(arr)):
-
             key = arr[i]
-            j = i-1
-            while (j >= 0 and key < arr[j]):
-
-                arr[j+1] = arr[j]
+            j = i - 1
+            while j >= 0 and key < arr[j]:
+                arr[j + 1] = arr[j]
                 j -= 1
 
-                displayArr(arr, ["yellow" if x == j else "red" if x ==
-                           j+1 else "blue" for x in range(len(arr))])
+                displayArr(
+                    arr,
+                    [
+                        "yellow" if x == j else "red" if x == j + 1 else "blue"
+                        for x in range(len(arr))
+                    ],
+                )
                 time.sleep(tym)
-            arr[j+1] = key
+            arr[j + 1] = key
 
         displayArr(arr, ["blue" for x in range(len(arr))])
 
-    elif algoComboBox.get() == 'Quick Sort':
-        quick_sort(arr, 0, len(arr)-1, displayArr, tym)
+    elif algoComboBox.get() == "Quick Sort":
+        quick_sort(arr, 0, len(arr) - 1, displayArr, tym)
         # INCOMPLETE
 
 
@@ -180,16 +204,14 @@ display_window.grid(row=0, column=0, padx=10, pady=5)
 
 lbl1 = Label(display_window, text="Algorithm: ", bg="white")
 lbl1.grid(row=0, column=0, padx=10, pady=5, sticky=W)
-algoComboBox = ttk.Combobox(
-    display_window, textvariable=algoName, values=algoList)
+algoComboBox = ttk.Combobox(display_window, textvariable=algoName, values=algoList)
 algoComboBox.grid(row=0, column=1, padx=5, pady=5)
 algoComboBox.current(0)
 
 
 lbl2 = Label(display_window, text="Sorting Speed: ", bg="white")
 lbl2.grid(row=1, column=0, padx=10, pady=5, sticky=W)
-speedComboBox = ttk.Combobox(
-    display_window, textvariable=speedName, values=speedList)
+speedComboBox = ttk.Combobox(display_window, textvariable=speedName, values=speedList)
 speedComboBox.grid(row=1, column=1, padx=5, pady=5)
 speedComboBox.current(0)
 
@@ -198,8 +220,7 @@ btn1 = Button(display_window, text="Sort", command=sort, bg="#C4C5BF")
 btn1.grid(row=4, column=1, padx=5, pady=5)
 
 
-btn2 = Button(display_window, text="Create Array",
-              command=createArr, bg="#C4C5BF")
+btn2 = Button(display_window, text="Create Array", command=createArr, bg="#C4C5BF")
 btn2.grid(row=4, column=0, padx=5, pady=5)
 
 
